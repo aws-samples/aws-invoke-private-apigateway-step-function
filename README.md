@@ -64,10 +64,10 @@ Please refer to the architecture diagram below:
 
 ## Testing
 
-1. Run the following AWS CLI command to start the Step Function workflow. Note, you must edit the {StateMachineHTTPEndpointArn} placeholder with the ARN of the deployed Step Function workflow. This is provided in the stack outputs. Please replace {your-region} with the region selected at the time of deployment.
+1. Run the following AWS CLI command to start the Step Function workflow. Note, you must edit the {statemachine-arn} placeholder with the ARN of the deployed Step Function ARN. This is provided in the stack outputs. Please replace {your-region} with the region selected at the time of deployment.
 
 ```bash
-aws stepfunctions start-execution --state-machine-arn "{StateMachineHTTPEndpointArn}" --region {your-region}
+aws stepfunctions start-execution --state-machine-arn "{statemachine-arn}" --region {your-region}
 ```
 
 This Step Function does not require any input. 
@@ -76,7 +76,7 @@ This Step Function does not require any input.
 
 ```bash
 {
-    "executionArn": "arn:aws:states:{your-region}:123456789012:execution:StateMachineHTTPEndpoint-mnZFTe6jJSDu:40e520d2-4d3e-42ce-a8e3-b33bfed22fc1",
+    "executionArn": "arn:aws:states:{your-region}:{Account-ID}:execution:{statemachine-name}:{execution-id}",
     "startDate": "2024-01-10T20:06:47.616000+05:30"
 }
 ```

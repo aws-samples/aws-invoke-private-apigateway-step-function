@@ -29,7 +29,7 @@ Resources:
     Type: AWS::VpcLattice::ResourceGateway
     Properties:
       IpAddressType: IPV4
-      Name: resourcegateway-private-api1
+      Name: resourcegateway-private-api
       SecurityGroupIds: !Ref SecurityGroups
       SubnetIds: !Ref SubnetIds
       VpcIdentifier: !Ref VPCId
@@ -38,7 +38,7 @@ Resources:
     Type: AWS::VpcLattice::ResourceConfiguration
     Properties:
       AllowAssociationToSharableServiceNetwork: True
-      Name: resource-config-private-api1
+      Name: resource-config-private-api
       PortRanges: 
         - 443
       ProtocolType: TCP
@@ -53,7 +53,7 @@ Resources:
   APIConnection:
     Type: AWS::Events::Connection
     Properties:
-      Name: 'Private-API-Gateway-Connection1'
+      Name: 'Private-API-Gateway-Connection'
       InvocationConnectivityParameters:
         ResourceParameters:
             ResourceConfigurationArn: !GetAtt ResourceConfiguration.Arn
@@ -66,7 +66,7 @@ Resources:
   StepFunction:
     Type: AWS::Serverless::StateMachine
     Properties:
-      Name : StepFunction-PrivateAPI1
+      Name : StepFunction-PrivateAPI
       Role : !GetAtt StepFunctionEventRole.Arn
       DefinitionUri: statemachine/definition.asl.json
       DefinitionSubstitutions:
@@ -84,7 +84,7 @@ Resources:
               Service: states.amazonaws.com
             Action: sts:AssumeRole
       Policies:
-        - PolicyName: StepFunctionExecutionPolicy1
+        - PolicyName: StepFunctionExecutionPolicy
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
@@ -126,4 +126,3 @@ Outputs:
   StepFunctionARN:
     Description: "Step Function Name"
     Value: !Sub arn:aws:states:${AWS::Region}:${AWS::AccountId}:stateMachine:${StepFunction.Name}
-
